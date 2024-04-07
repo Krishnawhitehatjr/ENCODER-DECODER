@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encode and Decode</title>
+</head>
+<body>
+
+<h2>Encode and Decode Text with Password</h2>
+
+<label for="password">Enter Password:</label>
+<input type="password" id="password"><br><br>
+
+<label for="inputText">Enter Text to Encode/Decode:</label><br>
+<textarea id="inputText" rows="4" cols="50"></textarea><br><br>
+
+<button onclick="encodeText()">Encode</button>
+<button onclick="decodeText()">Decode</button><br><br>
+
+<label for="outputText">Result:</label><br>
+<textarea id="outputText" rows="4" cols="50"></textarea>
+
+<script>
+function encodeText() {
+  var password = document.getElementById("password").value;
+  var inputText = document.getElementById("inputText").value;
+  var outputText = "";
+  for (var i = 0; i < inputText.length; i++) {
+    var charCode = inputText.charCodeAt(i);
+    var shift = password.charCodeAt(i % password.length) - 32; // shift amount based on password
+    outputText += String.fromCharCode((charCode - 32 + shift) % 95 + 32); // 95 printable ASCII characters (32 to 126)
+  }
+  document.getElementById("outputText").value = outputText;
+}
+
+function decodeText() {
+  var password = document.getElementById("password").value;
+  var inputText = document.getElementById("inputText").value;
+  var outputText = "";
+  for (var i = 0; i < inputText.length; i++) {
+    var charCode = inputText.charCodeAt(i);
+    var shift = password.charCodeAt(i % password.length) - 32;
+    outputText += String.fromCharCode((charCode - 32 - shift + 95) % 95 + 32);
+  }
+  document.getElementById("outputText").value = outputText;
+}
+</script>
+
+</body>
+</html>
+
